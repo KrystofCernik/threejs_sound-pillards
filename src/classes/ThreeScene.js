@@ -4,7 +4,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 import RAF from '../utils/raf'
 import config from '../utils/config'
-import MyGui from '../utils/MyGui'
+
+import SpherePillards from './SpherePillardsClass'
+import Floor from './FloorClass'
+import Spectrum from './SpectrumClass'
+import Particles from './Particles'
+import CamParallax from './CamParallax'
 
 class ThreeScene {
     constructor() {
@@ -25,22 +30,23 @@ class ThreeScene {
         this.scene = new THREE.Scene()
 
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-        this.camera.position.set(0, 0, 5)
+        this.camera.position.set(0, 0, 7)
         this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-        this.controls.enabled = config.controls
+        this.controls.enabled = true
         this.controls.maxDistance = 1500
         this.controls.minDistance = 0
-
-        if (config.myGui)
-            MyGui.start()
+        // CamParallax.init(this.camera)
 
         let light = new THREE.AmbientLight()
         let pointLight = new THREE.PointLight()
         pointLight.position.set(10, 10, 0)
         this.scene.add(light, pointLight)
 
-        const cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshNormalMaterial())
-        this.scene.add(cube)
+        SpherePillards.init(this.scene)
+        Floor.init(this.scene)
+        Spectrum.init(this.scene)
+        Particles.init(this.scene)
+        CamParallax.init(this.scene)
 
         window.addEventListener("resize", this.resizeCanvas)
         RAF.subscribe('threeSceneUpdate', this.update)
@@ -48,6 +54,10 @@ class ThreeScene {
 
     update() {
         this.renderer.render(this.scene, this.camera);
+        SpherePillards.update()
+        Spectrum.update()
+        Particles.update()
+        // CamParallax.update()
     }
 
 

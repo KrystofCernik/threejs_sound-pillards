@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <ThreeScene />
+    <AudioButton />
   </div>
 </template>
 
 <script>
 import ThreeScene from "./components/ThreeScene.vue";
+import AudioButton from './components/AudioButton.vue';
 
 export default {
   name: "App",
   components: {
-    ThreeScene
+    ThreeScene,
+    AudioButton
   }
 };
 </script>
