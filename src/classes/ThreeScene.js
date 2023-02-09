@@ -3,7 +3,6 @@ import * as THREE from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 import RAF from '../utils/raf'
-import config from '../utils/config'
 
 import SpherePillards from './SpherePillardsClass'
 import Floor from './FloorClass'
